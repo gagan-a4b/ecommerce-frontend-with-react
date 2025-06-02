@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import { fetchOrders } from "../api/orderApi";
+import OrderModal from "../components/OrderModal"; 
 
 function Orders() {
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const token = localStorage.getItem("token");
 
-  useEffect( () => {
+  useEffect(() => {
     if (!token) return;
 
     const fetchData = async () => {
@@ -75,34 +76,7 @@ function Orders() {
         )}
       </div>
 
-      {/* Modal */}
-      {selectedOrder && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg max-w-2xl w-full relative">
-            <button
-              onClick={closeModal}
-              className="absolute top-2 right-2 text-gray-600 hover:text-black text-xl"
-            >
-              &times;
-            </button>
-            <h2 className="text-xl font-bold mb-4">
-              Order #{selectedOrder.orderId}
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {selectedOrder.productInfo.map((item) => (
-                <div key={item.productId} className="text-center">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="h-32 w-full object-contain mb-2 rounded"
-                  />
-                  <p className="font-medium">{item.name}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
+      <OrderModal selectedOrder={selectedOrder} onClose={closeModal} />
     </div>
   );
 }

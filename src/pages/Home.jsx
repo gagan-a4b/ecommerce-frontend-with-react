@@ -54,7 +54,7 @@ function Home() {
   return (
     <div>
       <Header showAuthButtons={true} showUserLinks={true} />
-      <div className="flex mt-28 mb-10 flex-wrap gap-10 justify-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 mt-28 mb-10 px-4">
         {currentProducts.map((product) => (
           <ProductCard
             key={product.productId}

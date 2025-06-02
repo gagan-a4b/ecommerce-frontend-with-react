@@ -1,4 +1,5 @@
 import { BASE_URL } from "./api";
+import ERROR_MESSAGES from "../configs/errors";
 
 export const fetchOrders = async () => {
   try {
@@ -7,13 +8,9 @@ export const fetchOrders = async () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
-    if (!response.ok) {
-      throw new Error("Failed to fetch orders");
-    }
     const data = await response.json();
     return { success: true, data: data.orders || [] };
   } catch (error) {
-    console.error("Error fetching orders:", error);
-    return { success: false, message: "Error fetching orders" };
+    return { success: false, message: ERROR_MESSAGES.ORDERS.FETCH_ERROR.message };
   }
 };

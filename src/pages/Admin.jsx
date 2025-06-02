@@ -3,13 +3,14 @@ import Header from "./Header";
 import Pagination from "../components/Pagination";
 import { toast } from "react-toastify";
 import ProductCard from "../components/ProductCard";
-import ProductForm from "../components/ProductForm";
 import {
   fetchProducts,
   addProduct,
   editProducts,
   deleteProduct,
 } from "../api/productsApi";
+
+import ProductModal from "../components/ProductModal";
 
 const Admin = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -157,56 +158,36 @@ const Admin = () => {
 
       {/* Add Product Modal */}
       {showAddProductForm && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-white bg-opacity-20 transition-opacity duration-300">
-          <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md transform transition-all duration-300 scale-100">
-            <button
-              className="absolute top-4 right-6 text-gray-600 hover:text-red-500 text-xl"
-              onClick={() => setShowAddProductForm(false)}
-            >
-              ✕
-            </button>
-            <h2 className="text-lg font-bold mb-4">Add Product</h2>
-            <ProductForm
-              product={newProduct}
-              setProduct={setNewProduct}
-              onSubmit={handleAddProduct}
-              type="add"
-            />
-          </div>
-        </div>
+        <ProductModal
+          type="add"
+          product={newProduct}
+          setProduct={setNewProduct}
+          onSubmit={handleAddProduct}
+          onClose={() => setShowAddProductForm(false)}
+        />
       )}
 
       {/* Edit Product Modal */}
       {editProduct.productId && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-white bg-opacity-20 transition-opacity duration-300">
-          <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md transform transition-all duration-300 scale-100">
-            <button
-              className="absolute top-4 right-6 text-gray-600 hover:text-red-500 text-xl"
-              onClick={() =>
-                setEditProduct({
-                  productId: null,
-                  name: "",
-                  price: "",
-                  image: "",
-                  description: "",
-                })
-              }
-            >
-              ✕
-            </button>
-            <h2 className="text-lg font-bold mb-4">Edit Product</h2>
-            <ProductForm
-              product={editProduct}
-              setProduct={setEditProduct}
-              onSubmit={handleEditProduct}
-              type="edit"
-            />
-          </div>
-        </div>
+        <ProductModal
+          type="edit"
+          product={editProduct}
+          setProduct={setEditProduct}
+          onSubmit={handleEditProduct}
+          onClose={() =>
+            setEditProduct({
+              productId: null,
+              name: "",
+              price: "",
+              image: "",
+              description: "",
+            })
+          }
+        />
       )}
 
       <h3 className="text-2xl font-semibold mt-10">All Products</h3>
-      <div className="flex mt-14 mb-10 flex-wrap gap-6 justify-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 mt-28 mb-10 px-4">
         {currentProducts.map((product) => (
           <ProductCard
             key={product.productId}

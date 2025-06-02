@@ -1,6 +1,7 @@
 // cartApi.js
 import { fetchProducts } from './productsApi';
 import { BASE_URL } from './api';
+import ERROR_MESSAGES from '../configs/errors';
 
 export const fetchCart = async () => {
   try {
@@ -15,8 +16,7 @@ export const fetchCart = async () => {
     }
     return { success: true, data: data.data.productInfo };
   } catch (error) {
-    console.error("Error fetching cart:", error);
-    return { success: false, message: "Error fetching cart" };
+    return { success: false, message: ERROR_MESSAGES.CART.FETCH_ERROR.message };
   }
 };
 
@@ -40,8 +40,7 @@ export const loadCartWithDetails = async () => {
 
     return { success: true, data: enrichedItems };
   } catch (err) {
-    console.error("Error loading cart with details:", err);
-    return { success: false, message: "Failed to enrich cart items" };
+    return { success: false, message: ERROR_MESSAGES.CART.ENRICH_ERROR.message };
   }
 };
 
@@ -62,8 +61,7 @@ export const removeCartItem = async (productId) => {
 
     return { success: true };
   } catch (err) {
-    console.error("Error removing item from cart:", err);
-    return { success: false, message: err.message };
+    return { success: false, message: ERROR_MESSAGES.CART.REMOVE_ERROR.message };
   }
 };
 

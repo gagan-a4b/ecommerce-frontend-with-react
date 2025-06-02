@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App.jsx';
 import './index.css';
 import { CartProvider } from './context/cartContext.jsx';
-import { MIXPANEL_PROJECT_TOKEN } from '../configs/constants.js';
+import { MIXPANEL_PROJECT_TOKEN } from './configs/constants.js';
 
 
 //Import Mixpanel SDK

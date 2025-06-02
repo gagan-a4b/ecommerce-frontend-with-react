@@ -4,6 +4,7 @@ import Header from "./Header";
 import { toast } from "react-toastify";
 import ProductCard from "../components/ProductCard";
 import { useCart } from "../context/cartContext"; 
+import { BASE_URL } from "../api/api";
 
 function Checkout() {
   const location = useLocation();
@@ -14,7 +15,7 @@ function Checkout() {
   const { setCartCount } = useCart(); 
 
   const handlePayment = async () => {
-    const response = await fetch("http://localhost:3000/api/orders/create", {
+    const response = await fetch(`${BASE_URL}/api/orders/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

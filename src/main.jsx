@@ -5,13 +5,14 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App.jsx';
 import './index.css';
 import { CartProvider } from './context/cartContext.jsx';
+import { MIXPANEL_PROJECT_TOKEN } from '../configs/constants.js';
 
 
 //Import Mixpanel SDK
 import mixpanel from "mixpanel-browser";
- 
 
-mixpanel.init('085582d6b61b8771260f330722a6ed10', {
+
+mixpanel.init(MIXPANEL_PROJECT_TOKEN, {
   autocapture: {
     pageview: "full-url",
     click: true,
